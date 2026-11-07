@@ -16,5 +16,10 @@ Changes made by Qreative (files carry a "Qreative fork" comment where changed):
     403 {"mustChangePassword": true}, and the web UI shows a locked prompt that
     asks for the current password and a new one (twice). Completing the change
     ends every earlier session of that user.
+  - Agency branding: user-visible product name, default favicon/logo, page
+    metadata, help/doc links and locale strings show "Qreative Media" instead
+    of the upstream name; the update check (which links to upstream releases)
+    is off by default. Source code, comments, identifiers and licences keep
+    the upstream attribution.
   - A GitHub Actions workflow that builds the image
     ghcr.io/qreative-co/filebrowser.

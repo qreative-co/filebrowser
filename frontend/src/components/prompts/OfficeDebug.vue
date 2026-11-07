@@ -40,7 +40,7 @@
             <br/>
             <strong v-if="line.label">{{ line.label }}</strong> {{ typeof line === "string" ? line : line.text }}
           </template>
-          <template v-if="step.link">
+          <template v-if="step.link && wikiLink">
             <br/>
             <a :href="wikiLink" target="_blank" rel="noopener noreferrer">📖 {{ $t("onlyoffice.troubleshootingGuide") }}</a> <!-- eslint-disable-line @intlify/vue-i18n/no-raw-text -->
           </template>
@@ -66,7 +66,7 @@
       <div v-if="overallStatus === 'error'" class="debug-status-error">
         <strong>❌ {{ $t("onlyoffice.errorDetected") }}</strong><br/> <!-- eslint-disable-line @intlify/vue-i18n/no-raw-text -->
         {{ $t("onlyoffice.integrationFailed") }}<br/>
-        <a :href="wikiLink" target="_blank" rel="noopener noreferrer">
+        <a v-if="wikiLink" :href="wikiLink" target="_blank" rel="noopener noreferrer">
           <!-- eslint-disable-line @intlify/vue-i18n/no-raw-text -->
           📖 {{ $t("onlyoffice.troubleshootingGuide") }}
         </a>
@@ -85,7 +85,8 @@ import { globalVars } from "@/utils/constants";
 import { officeApi } from "@/api";
 import { events } from "@/notify";
 
-const wikiLink = "https://filebrowserquantum.com/en/docs/integrations/office/troubleshooting/";
+// Qreative fork: no links to third-party docs in the UI.
+const wikiLink = "";
 
 export default {
   name: "officeDebug",
@@ -332,12 +333,12 @@ export default {
                 text: "❌ Callback Bad Request (400)",
                 lines: [
                   { label: "Issue:", text: "OnlyOffice server sent invalid callback data" },
-                  { label: "Root Cause:", text: "OnlyOffice server → FileBrowser API communication problem" },
+                  { label: "Root Cause:", text: "OnlyOffice server → Qreative Media API communication problem" },
                   { label: "Solution:" },
                   "• Check OnlyOffice server logs for callback generation errors",
-                  "• Verify JWT secret matches between OnlyOffice and FileBrowser",
+                  "• Verify JWT secret matches between OnlyOffice and Qreative Media",
                   "• Check OnlyOffice server callback URL configuration",
-                  "• Ensure OnlyOffice server can reach FileBrowser internal URL",
+                  "• Ensure OnlyOffice server can reach Qreative Media internal URL",
                 ],
               });
             } else if (response.status === 500) {
@@ -345,13 +346,13 @@ export default {
               this.updateDebugStatus({
                 text: "❌ Callback Internal Server Error (500)",
                 lines: [
-                  { label: "Issue:", text: "FileBrowser API error processing OnlyOffice callback" },
-                  { label: "Root Cause:", text: "FileBrowser API configuration or processing issue" },
+                  { label: "Issue:", text: "Qreative Media API error processing OnlyOffice callback" },
+                  { label: "Root Cause:", text: "Qreative Media API configuration or processing issue" },
                   { label: "Solution:" },
-                  "• Check FileBrowser server logs for callback processing errors",
-                  "• Verify FileBrowser API configuration",
+                  "• Check Qreative Media server logs for callback processing errors",
+                  "• Verify Qreative Media API configuration",
                   "• Check if OnlyOffice server is sending valid callback data",
-                  "• Ensure FileBrowser has proper permissions to save files",
+                  "• Ensure Qreative Media has proper permissions to save files",
                 ],
               });
             }

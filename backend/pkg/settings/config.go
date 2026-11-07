@@ -27,7 +27,7 @@ import (
 
 const (
 	defaultMinSearchLength     = 3
-	defaultFrontendDescription = "FileBrowser Quantum is a file manager for the web which can be used to manage files on your server"
+	defaultFrontendDescription = "Qreative Media: the agency media library" // Qreative fork: agency branding only
 )
 
 var Config Settings
@@ -301,7 +301,7 @@ func setupFrontend(generate bool) {
 		Config.Frontend.ExternalLinks = append(Config.Frontend.ExternalLinks, ExternalLink{
 			Text:  fmt.Sprintf("(%v)", version.Version),
 			Title: version.CommitSHA,
-			Url:   "https://github.com/gtsteffaniak/filebrowser/releases/",
+			Url:   "https://github.com/qreative-co/filebrowser/releases/", // Qreative fork
 		})
 		Config.Frontend.ExternalLinks = append(Config.Frontend.ExternalLinks, ExternalLink{
 			Text: "Help",
@@ -889,6 +889,8 @@ func SetDefaults(generate bool) Settings {
 			BaseURL: "",
 		},
 		Server: Server{
+			// Qreative fork: no upstream "update available" links in the UI by default.
+			DisableUpdateCheck: true,
 			SearchResultsLimit: 1000,
 			MinSearchLength:    defaultMinSearchLength,
 			NumImageProcessors: 4,
@@ -931,7 +933,7 @@ func SetDefaults(generate bool) Settings {
 			},
 		},
 		Frontend: Frontend{
-			Name:        "FileBrowser Quantum",
+			Name:        "Qreative Media", // Qreative fork: agency branding only
 			Description: defaultFrontendDescription,
 		},
 		UserDefaults: UserDefaults{
