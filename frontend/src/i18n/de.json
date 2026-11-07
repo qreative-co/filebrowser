@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Passwort ändern",
     "requirePasswordChangeInstructions": "Sie müssen ein neues Passwort festlegen, bevor Sie fortfahren können.",
     "requirePasswordChangeSuccess": "Das Passwort wurde aktualisiert. Sie sind nun angemeldet.",
-    "requirePasswordChangeMustDiffer": "Das neue Passwort muss sich von Ihrem aktuellen Passwort unterscheiden."
+    "requirePasswordChangeMustDiffer": "Das neue Passwort muss sich von Ihrem aktuellen Passwort unterscheiden.",
+    "requirePasswordChangeCurrent": "Aktuelles Passwort"
   },
   "prompts": {
     "noTemplate": "Ihre Vorlage ist leer!",

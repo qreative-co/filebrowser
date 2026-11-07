@@ -1699,6 +1699,42 @@ func (s *Storage) UpdateRulePath(sourcePath string, oldPath, newPath utils.Index
 	return nil
 }
 
+// RevokeSessionTokensForUser immediately revokes every session token owned by
+// userID (Qreative fork: used after a required password change so no session
+// issued under the temporary password survives). Named API tokens are kept.
+func (s *Storage) RevokeSessionTokensForUser(userID uint64) (int, error) {
+	s.mux.Lock()
+	hashes := make([]string, 0)
+	for tokenHash, info := range s.HashedTokens {
+		if info.IsSession && info.UserID == userID {
+			hashes = append(hashes, tokenHash)
+		}
+	}
+	rollbacks := make([]tokenRevokeRollback, len(hashes))
+	for i, tokenHash := range hashes {
+		rollbacks[i].capture(s, tokenHash)
+		s.RevokedTokens[tokenHash] = 0
+		delete(s.HashedTokens, tokenHash)
+	}
+	sqlStore := s.sqlStore
+	s.mux.Unlock()
+
+	if sqlStore == nil {
+		return len(hashes), nil
+	}
+	for i, tokenHash := range hashes {
+		if err := sqlStore.PersistImmediateTokenRevocation(tokenHash); err != nil {
+			s.mux.Lock()
+			for j := i; j < len(rollbacks); j++ {
+				rollbacks[j].apply(s)
+			}
+			s.mux.Unlock()
+			return i, err
+		}
+	}
+	return len(hashes), nil
+}
+
 // RevokeToken immediately invalidates a token: the owner mapping is removed and
 // the hash is persisted as revoked with timestamp 0 (no grace window).
 func (s *Storage) RevokeToken(tokenString string) error {

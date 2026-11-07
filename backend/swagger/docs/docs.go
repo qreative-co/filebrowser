@@ -8640,6 +8640,10 @@ const docTemplate = `{
                 "message": {
                     "type": "string"
                 },
+                "mustChangePassword": {
+                    "description": "MustChangePassword is set on 403 responses caused by a pending required\npassword change, so API clients can tell it apart from other 403s.",
+                    "type": "boolean"
+                },
                 "status": {
                     "type": "integer"
                 },

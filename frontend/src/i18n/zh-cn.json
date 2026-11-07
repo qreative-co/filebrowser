@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "更改密码",
     "requirePasswordChangeInstructions": "在继续之前，您必须设置一个新密码。",
     "requirePasswordChangeSuccess": "密码已更新。您现已登录。",
-    "requirePasswordChangeMustDiffer": "新密码必须与您当前的密码不同"
+    "requirePasswordChangeMustDiffer": "新密码必须与您当前的密码不同",
+    "requirePasswordChangeCurrent": "当前密码"
   },
   "prompts": {
     "noTemplate": "您的模板为空！",

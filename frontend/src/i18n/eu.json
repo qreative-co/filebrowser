@@ -327,7 +327,8 @@
     "requirePasswordChangeTitle": "Aldatu pasahitza",
     "requirePasswordChangeInstructions": "Pasahitz berri bat ezarri behar duzu jarraitu aurretik.",
     "requirePasswordChangeSuccess": "Pasahitza eguneratu da. Saioa hasita duzu orain.",
-    "requirePasswordChangeMustDiffer": "Pasahitz berriak egungo pasahitzaren desberdina izan behar du"
+    "requirePasswordChangeMustDiffer": "Pasahitz berriak egungo pasahitzaren desberdina izan behar du",
+    "requirePasswordChangeCurrent": "Uneko pasahitza"
   },
   "quotas": {
     "title": "Biltegiratze-kuota",

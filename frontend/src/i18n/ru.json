@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Изменить пароль",
     "requirePasswordChangeInstructions": "Прежде чем продолжить, необходимо установить новый пароль.",
     "requirePasswordChangeSuccess": "Пароль обновлен. Вы вошли в систему.",
-    "requirePasswordChangeMustDiffer": "Новый пароль должен отличаться от вашего текущего пароля"
+    "requirePasswordChangeMustDiffer": "Новый пароль должен отличаться от вашего текущего пароля",
+    "requirePasswordChangeCurrent": "Текущий пароль"
   },
   "prompts": {
     "noTemplate": "Ваш шаблон пуст!",

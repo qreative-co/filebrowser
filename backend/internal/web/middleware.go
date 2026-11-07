@@ -360,8 +360,16 @@ func withOrWithoutUserHelper(fn handleFunc) handleFunc {
 
 		// Authentication failed, but try to extract user info from expired tokens
 		if status == http.StatusUnauthorized || status == http.StatusForbidden {
-			// Try to extract user info from potentially expired token
-			userFromExpiredToken := extractUserFromExpiredToken(r, data)
+			// Try to extract user info from potentially expired token.
+			// Qreative fork: a user who must change their password never acts as
+			// themselves here (outside allowlisted routes); they fall back to anonymous.
+			var userFromExpiredToken *users.User
+			if err != errors.ErrPasswordChangeRequired {
+				userFromExpiredToken = extractUserFromExpiredToken(r, data)
+				if userMustChangePassword(userFromExpiredToken) && !data.allowPendingPasswordChange {
+					userFromExpiredToken = nil
+				}
+			}
 			if userFromExpiredToken != nil {
 				data.User = userFromExpiredToken
 				if data.ShareValid && data.Share.Hash != "" {
@@ -543,6 +551,10 @@ func withUserHelper(fn handleFunc) handleFunc {
 		if data.User.Username == "" {
 			return http.StatusForbidden, errors.ErrUnauthorized
 		}
+		// Qreative fork: a user who must change their password may only reach allowlisted routes.
+		if status, err := passwordChangeGate(data); err != nil {
+			return status, err
+		}
 		// Call the handler function, passing in the context (or return OK if no handler)
 		if fn == nil {
 			return http.StatusOK, nil
@@ -697,6 +709,8 @@ func wrapHandler(fn handleFunc) http.HandlerFunc {
 			response := &HttpResponse{
 				Status:  status, // Use the status code from the middleware
 				Message: err.Error(),
+				// Qreative fork: flag pending required password changes for API clients.
+				MustChangePassword: err == errors.ErrPasswordChangeRequired,
 			}
 
 			// Set the content type to JSON and status code

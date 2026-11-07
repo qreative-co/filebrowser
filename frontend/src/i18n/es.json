@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Cambia tu contraseña",
     "requirePasswordChangeInstructions": "Debes establecer una nueva contraseña antes de continuar.",
     "requirePasswordChangeSuccess": "Se ha actualizado la contraseña. Ya has iniciado sesión.",
-    "requirePasswordChangeMustDiffer": "La nueva contraseña debe ser diferente de tu contraseña actual"
+    "requirePasswordChangeMustDiffer": "La nueva contraseña debe ser diferente de tu contraseña actual",
+    "requirePasswordChangeCurrent": "Contraseña actual"
   },
   "prompts": {
     "noTemplate": "¡Tu plantilla está vacía!",

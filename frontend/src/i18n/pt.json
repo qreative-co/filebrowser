@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Alterar a sua palavra-passe",
     "requirePasswordChangeInstructions": "Tem de definir uma nova palavra-passe antes de continuar.",
     "requirePasswordChangeSuccess": "A palavra-passe foi atualizada. Já está com a sessão iniciada.",
-    "requirePasswordChangeMustDiffer": "A nova palavra-passe tem de ser diferente da sua palavra-passe atual"
+    "requirePasswordChangeMustDiffer": "A nova palavra-passe tem de ser diferente da sua palavra-passe atual",
+    "requirePasswordChangeCurrent": "Palavra-passe atual"
   },
   "prompts": {
     "noTemplate": "O seu modelo está vazio!",

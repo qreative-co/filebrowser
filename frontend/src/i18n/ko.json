@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "비밀번호 변경",
     "requirePasswordChangeInstructions": "계속 진행하려면 새 비밀번호를 설정해야 합니다.",
     "requirePasswordChangeSuccess": "비밀번호가 업데이트되었습니다. 이제 로그인이 완료되었습니다.",
-    "requirePasswordChangeMustDiffer": "새 비밀번호는 현재 비밀번호와 달라야 합니다."
+    "requirePasswordChangeMustDiffer": "새 비밀번호는 현재 비밀번호와 달라야 합니다.",
+    "requirePasswordChangeCurrent": "현재 비밀번호"
   },
   "prompts": {
     "noTemplate": "템플릿이 비어 있습니다!",

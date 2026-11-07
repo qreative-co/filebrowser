@@ -426,6 +426,10 @@ export const mutations = {
       const targetId =
         id ?? state.prompts[state.prompts.length - 1]?.id;
       const promptToClose = state.prompts.find((p) => p.id === targetId);
+      // Qreative fork: locked prompts only close with force (e.g. after a required password change).
+      if (promptToClose?.locked) {
+        return;
+      }
       if (
         promptToClose?.name === "upload" &&
         state.upload.isUploading &&
@@ -489,6 +493,7 @@ export const mutations = {
       name: prompt.name,
       parentId,
       pinned: prompt.pinned || false,
+      locked: prompt.locked || false,
       confirm: prompt.confirm,
       action: prompt.action,
       props: prompt.props || {},

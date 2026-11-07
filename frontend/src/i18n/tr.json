@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Şifrenizi değiştirin",
     "requirePasswordChangeInstructions": "Devam etmeden önce yeni bir şifre belirlemelisiniz.",
     "requirePasswordChangeSuccess": "Şifre güncellendi. Artık oturum açtınız.",
-    "requirePasswordChangeMustDiffer": "Yeni şifreniz, mevcut şifrenizden farklı olmalıdır"
+    "requirePasswordChangeMustDiffer": "Yeni şifreniz, mevcut şifrenizden farklı olmalıdır",
+    "requirePasswordChangeCurrent": "Mevcut parola"
   },
   "prompts": {
     "noTemplate": "Şablonunuz boş!",

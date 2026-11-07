@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "تغيير كلمة المرور",
     "requirePasswordChangeInstructions": "يجب عليك تعيين كلمة مرور جديدة قبل المتابعة.",
     "requirePasswordChangeSuccess": "تم تحديث كلمة المرور. لقد تم تسجيل دخولك الآن.",
-    "requirePasswordChangeMustDiffer": "يجب أن تكون كلمة المرور الجديدة مختلفة عن كلمة المرور الحالية"
+    "requirePasswordChangeMustDiffer": "يجب أن تكون كلمة المرور الجديدة مختلفة عن كلمة المرور الحالية",
+    "requirePasswordChangeCurrent": "كلمة المرور الحالية"
   },
   "prompts": {
     "noTemplate": "قالبك فارغ!",

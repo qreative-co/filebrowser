@@ -39,6 +39,9 @@ type Context struct {
 	MaxBandwidth int
 	Data         interface{}
 	IndexPath    string
+	// allowPendingPasswordChange lets a user who must change their password
+	// reach this route (see must_change_password.go).
+	allowPendingPasswordChange bool
 }
 
 // HandleFunc is the signature used by middleware-wrapped handlers.
@@ -72,6 +75,9 @@ type HttpResponse struct {
 	Status  int    `json:"status,omitempty"`
 	Message string `json:"message,omitempty"`
 	Token   string `json:"token,omitempty"`
+	// MustChangePassword is set on 403 responses caused by a pending required
+	// password change, so API clients can tell it apart from other 403s.
+	MustChangePassword bool `json:"mustChangePassword,omitempty"`
 }
 
 // ResponseWriterWrapper wraps http.ResponseWriter to capture status code and username.

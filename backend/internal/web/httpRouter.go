@@ -25,19 +25,21 @@ func configureHTTPRouter(router, api, publicRoutes, publicApi *http.ServeMux) {
 	// ========================================
 	// User Routes - /api/users/ (with public routes)
 	// ========================================
-	api.HandleFunc("GET /users", withUser(userGetHandler))
+	// Qreative fork: own-user lookup stays reachable while a password change is pending.
+	api.HandleFunc("GET /users", userGetRoute())
 	api.HandleFunc("POST /users", withSelfOrAdmin(usersPostHandler))
 	api.HandleFunc("PATCH /users", withUser(userPatchHandler))
 	api.HandleFunc("PATCH /users/pinned-items", withUser(userPatchPinnedItemsHandler))
 	api.HandleFunc("DELETE /users", withSelfOrAdmin(userDeleteHandler))
-	publicApi.HandleFunc("GET /users", withUser(userGetHandler))
+	publicApi.HandleFunc("GET /users", userGetRoute())
 
 	// ========================================
 	// Auth Routes - /api/auth/
 	// ========================================
 	api.HandleFunc("POST /auth/login", withRateLimit(AuthRateLimitCredentialLockout, loginHelper(loginHandler)))
 	api.HandleFunc("POST /auth/password/change-required", withoutUser(withRateLimitChain(AuthRateLimitCredentialLockout, changeRequiredPasswordHandler)))
-	api.HandleFunc("POST /auth/logout", withOrWithoutUser(withRateLimitChain(AuthRateLimitModerate, logoutHandler)))
+	// Qreative fork: logout stays reachable while a password change is pending.
+	api.HandleFunc("POST /auth/logout", logoutRoute())
 	api.HandleFunc("POST /auth/signup", withoutUser(withRateLimitChain(AuthRateLimitModerate, signupHandler)))
 	api.HandleFunc("POST /auth/otp/generate", withOrWithoutUser(withRateLimitChain(AuthRateLimitModerate, generateOTPHandler)))
 	api.HandleFunc("POST /auth/otp/verify", withOrWithoutUser(withRateLimitChain(AuthRateLimitCredentialLockout, verifyOTPHandler)))

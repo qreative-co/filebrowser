@@ -14,6 +14,7 @@ import (
 	"github.com/gtsteffaniak/filebrowser/backend/internal/state"
 	"github.com/gtsteffaniak/filebrowser/backend/internal/utils"
 	"github.com/gtsteffaniak/filebrowser/backend/pkg/settings"
+	"github.com/gtsteffaniak/go-logger/logger"
 )
 
 type changeRequiredPasswordBody struct {
@@ -87,6 +88,12 @@ func changeRequiredPasswordHandler(w http.ResponseWriter, r *http.Request, d *Co
 	patch.RequirePasswordChange = false
 	if err = state.UpdateUser(&patch, body.Password, "password", "requirePasswordChange"); err != nil {
 		return http.StatusInternalServerError, err
+	}
+	// Qreative fork: end every session issued before the change (they were
+	// obtained with the temporary password); a fresh session is issued below.
+	if _, err = state.RevokeSessionTokensForUser(user.ID); err != nil {
+		logger.Errorf("password changed for %s but revoking old sessions failed: %v", user.Username, err)
+		return http.StatusInternalServerError, fmt.Errorf("password changed, but other sessions could not be ended; log in again")
 	}
 
 	updated, getErr := state.GetUserByUsername(user.Username)

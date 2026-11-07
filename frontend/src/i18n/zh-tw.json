@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "變更您的密碼",
     "requirePasswordChangeInstructions": "您必須先設定新密碼，才能繼續。",
     "requirePasswordChangeSuccess": "密碼已更新。您現在已登入。",
-    "requirePasswordChangeMustDiffer": "新密碼必須與您目前的密碼不同"
+    "requirePasswordChangeMustDiffer": "新密碼必須與您目前的密碼不同",
+    "requirePasswordChangeCurrent": "目前密碼"
   },
   "prompts": {
     "noTemplate": "您的模板為空！",
