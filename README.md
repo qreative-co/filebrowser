@@ -43,7 +43,8 @@ What the fork adds on top of upstream's `requirePasswordChange` user flag:
   routes (share pages) treat the user as anonymous. The password is changed with
   `POST /api/auth/password/change-required?username=<user>` (header `X-Password`: current password, URL-encoded; body
   `{"password": "...", "passwordConfirm": "..."}`), which re-checks the current password, enforces
-  `auth.methods.password.minLength`, sets the new password and clears the flag.
+  `auth.methods.password.minLength`, sets the new password, clears the flag, ends every existing session of the user
+  (sessions obtained with the temporary password do not survive) and issues a fresh session.
 - **Web UI.** After login (or on any page load with a flagged session) a pinned prompt that cannot be closed asks for the
   current password and the new password twice, enforces `minLength`, calls the endpoint above and clears the flag.
 

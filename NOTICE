@@ -14,6 +14,7 @@ Changes made by Qreative (files carry a "Qreative fork" comment where changed):
     FILEBROWSER_ADMIN_PASSWORD); while it is set, the backend answers every
     authenticated API except own-user lookup and logout with
     403 {"mustChangePassword": true}, and the web UI shows a locked prompt that
-    asks for the current password and a new one (twice).
+    asks for the current password and a new one (twice). Completing the change
+    ends every earlier session of that user.
   - A GitHub Actions workflow that builds the image
     ghcr.io/qreative-co/filebrowser.
