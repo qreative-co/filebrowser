@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "שנה את הסיסמה שלך",
     "requirePasswordChangeInstructions": "עליך להגדיר סיסמה חדשה לפני שתמשיך.",
     "requirePasswordChangeSuccess": "הסיסמה עודכנה. כעת אתה מחובר.",
-    "requirePasswordChangeMustDiffer": "הסיסמה החדשה חייבת להיות שונה מהסיסמה הנוכחית שלך"
+    "requirePasswordChangeMustDiffer": "הסיסמה החדשה חייבת להיות שונה מהסיסמה הנוכחית שלך",
+    "requirePasswordChangeCurrent": "סיסמה נוכחית"
   },
   "prompts": {
     "noTemplate": "התבנית שלך ריקה!",

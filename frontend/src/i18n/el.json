@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Αλλάξτε τον κωδικό πρόσβασής σας",
     "requirePasswordChangeInstructions": "Πρέπει να ορίσετε έναν νέο κωδικό πρόσβασης πριν συνεχίσετε.",
     "requirePasswordChangeSuccess": "Ο κωδικός πρόσβασης ενημερώθηκε. Έχετε πλέον συνδεθεί.",
-    "requirePasswordChangeMustDiffer": "Ο νέος κωδικός πρόσβασης πρέπει να διαφέρει από τον τρέχοντα κωδικό πρόσβασής σας"
+    "requirePasswordChangeMustDiffer": "Ο νέος κωδικός πρόσβασης πρέπει να διαφέρει από τον τρέχοντα κωδικό πρόσβασής σας",
+    "requirePasswordChangeCurrent": "Τρέχων κωδικός πρόσβασης"
   },
   "prompts": {
     "noTemplate": "Το πρότυπό σας είναι κενό!",

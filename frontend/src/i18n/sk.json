@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Zmeňte si heslo",
     "requirePasswordChangeInstructions": "Pred pokračovaním je potrebné nastaviť nové heslo.",
     "requirePasswordChangeSuccess": "Heslo bolo aktualizované. Teraz ste prihlásení.",
-    "requirePasswordChangeMustDiffer": "Nové heslo sa nesmie zhodovať s vaším súčasným heslom"
+    "requirePasswordChangeMustDiffer": "Nové heslo sa nesmie zhodovať s vaším súčasným heslom",
+    "requirePasswordChangeCurrent": "Súčasné heslo"
   },
   "prompts": {
     "noTemplate": "Vaša šablóna je prázdna!",

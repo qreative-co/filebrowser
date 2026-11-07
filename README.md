@@ -14,11 +14,54 @@
   <img width="800" alt="FileBrowser Quantum file listing in dark mode" src="https://filebrowserquantum.com/images/generated/listing/view-mode-normal-dark.jpg">
 </div>
 
+> [!NOTE]
+> **Qreative fork.** This is [qreative-co/filebrowser](https://github.com/qreative-co/filebrowser), a modified fork of
+> [FileBrowser Quantum](https://github.com/gtsteffaniak/filebrowser) v2.1.4-beta under the Apache-2.0 licence (see
+> [LICENSE](LICENSE) and [NOTICE](NOTICE)). Our only functional change is **"must change password at first login"**:
+> see [Qreative fork: must change password](#qreative-fork-must-change-password) below. Image:
+> `ghcr.io/qreative-co/filebrowser:<version>-qreative.<n>`.
+
 ## Pinned
 
 :pushpin: [Read The Official Docs](https://filebrowserquantum.com/) (currently english-only)
 
 :pushpin: [v2.0.0 is now stable!](https://filebrowserquantum.com/en/docs/getting-started/v2/about/) --> See [migration support discussion](https://github.com/gtsteffaniak/filebrowser/discussions/3105)
+
+## Qreative fork: must change password
+
+What the fork adds on top of upstream's `requirePasswordChange` user flag:
+
+- **Set automatically for the bootstrap admin.** When the admin account is created on first start with password login
+  enabled, and every time startup resets the admin password from `auth.methods.password.adminPassword` or the
+  `FILEBROWSER_ADMIN_PASSWORD` environment variable, the admin is flagged `requirePasswordChange`. An admin can set or
+  clear the flag for any user (user settings: "Require password change at next login", or
+  `PATCH /api/users` with `which: ["requirePasswordChange"]`).
+- **Enforced by the backend.** Login with the temporary password does not issue a session (upstream behaviour:
+  `POST /api/auth/login` answers 403). Any session or API token that already exists for a flagged password user can only
+  call `GET /api/users?username=self` and `POST /api/auth/logout`; every other authenticated API answers
+  `403 {"status":403,"message":"password change is required for user","mustChangePassword":true}`, and optional-auth
+  routes (share pages) treat the user as anonymous. The password is changed with
+  `POST /api/auth/password/change-required?username=<user>` (header `X-Password`: current password, URL-encoded; body
+  `{"password": "...", "passwordConfirm": "..."}`), which re-checks the current password, enforces
+  `auth.methods.password.minLength`, sets the new password and clears the flag.
+- **Web UI.** After login (or on any page load with a flagged session) a pinned prompt that cannot be closed asks for the
+  current password and the new password twice, enforces `minLength`, calls the endpoint above and clears the flag.
+
+### Removing the bootstrap password env var afterwards
+
+While `FILEBROWSER_ADMIN_PASSWORD` (or `adminPassword` in config) is set, **every restart resets the admin password to
+it and sets the flag again**. After the admin has logged in and chosen a new password:
+
+1. In Coolify open the service (here: project INFRASTRUCTURE, service `media-library`) > Environment Variables and
+   **delete** `FILEBROWSER_ADMIN_PASSWORD` (never replace it with another value: any non-empty value is applied as the
+   admin password on the next start). Also remove the `FILEBROWSER_ADMIN_PASSWORD=${FILEBROWSER_ADMIN_PASSWORD}` line
+   from the `files` service environment in the compose so Coolify does not recreate the variable, and make sure
+   `config.yaml` has no `adminPassword`.
+2. **Restart** the service (Coolify > Restart, or `POST /api/v1/services/<uuid>/restart`).
+3. Check the container log no longer shows `Resetting admin user to default username and password.` and that the new
+   password still works.
+
+From then on restarts keep the password the admin chose.
 
 ## About
 

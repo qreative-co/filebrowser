@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Modifier votre mot de passe",
     "requirePasswordChangeInstructions": "Vous devez définir un nouveau mot de passe avant de continuer.",
     "requirePasswordChangeSuccess": "Mot de passe mis à jour. Vous êtes désormais connecté(e).",
-    "requirePasswordChangeMustDiffer": "Le nouveau mot de passe doit être différent de votre mot de passe actuel"
+    "requirePasswordChangeMustDiffer": "Le nouveau mot de passe doit être différent de votre mot de passe actuel",
+    "requirePasswordChangeCurrent": "Mot de passe actuel"
   },
   "prompts": {
     "noTemplate": "Votre modèle est vide !",

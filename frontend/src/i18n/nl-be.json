@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Wijzig je wachtwoord",
     "requirePasswordChangeInstructions": "U moet een nieuw wachtwoord instellen voordat u verder kunt gaan.",
     "requirePasswordChangeSuccess": "Het wachtwoord is bijgewerkt. Je bent nu ingelogd.",
-    "requirePasswordChangeMustDiffer": "Het nieuwe wachtwoord moet anders zijn dan je huidige wachtwoord"
+    "requirePasswordChangeMustDiffer": "Het nieuwe wachtwoord moet anders zijn dan je huidige wachtwoord",
+    "requirePasswordChangeCurrent": "Huidig wachtwoord"
   },
   "prompts": {
     "noTemplate": "Uw sjabloon is leeg!",

@@ -56,7 +56,9 @@ func QuickSetup() error {
 	if err != nil {
 		return err
 	}
-	if generated {
+	// Qreative fork: the bootstrap admin password (generated, or taken from
+	// config/env) is always temporary when password login is enabled.
+	if generated || passwordAuth {
 		user.RequirePasswordChange = true
 	}
 

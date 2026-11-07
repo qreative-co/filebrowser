@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Zmień hasło",
     "requirePasswordChangeInstructions": "Przed kontynuowaniem należy ustawić nowe hasło.",
     "requirePasswordChangeSuccess": "Hasło zostało zaktualizowane. Jesteś teraz zalogowany.",
-    "requirePasswordChangeMustDiffer": "Nowe hasło musi różnić się od obecnego hasła"
+    "requirePasswordChangeMustDiffer": "Nowe hasło musi różnić się od obecnego hasła",
+    "requirePasswordChangeCurrent": "Obecne hasło"
   },
   "prompts": {
     "noTemplate": "Twój szablon jest pusty!",

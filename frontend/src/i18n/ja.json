@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "パスワードを変更する",
     "requirePasswordChangeInstructions": "続行するには、新しいパスワードを設定する必要があります。",
     "requirePasswordChangeSuccess": "パスワードが更新されました。これでログインが完了しました。",
-    "requirePasswordChangeMustDiffer": "新しいパスワードは、現在のパスワードとは異なるものにしてください"
+    "requirePasswordChangeMustDiffer": "新しいパスワードは、現在のパスワードとは異なるものにしてください",
+    "requirePasswordChangeCurrent": "現在のパスワード"
   },
   "prompts": {
     "noTemplate": "テンプレートが空です！",

@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Schimbă-ți parola",
     "requirePasswordChangeInstructions": "Trebuie să setați o nouă parolă înainte de a continua.",
     "requirePasswordChangeSuccess": "Parola a fost actualizată. Acum sunteți conectat.",
-    "requirePasswordChangeMustDiffer": "Noua parolă trebuie să fie diferită de parola actuală"
+    "requirePasswordChangeMustDiffer": "Noua parolă trebuie să fie diferită de parola actuală",
+    "requirePasswordChangeCurrent": "Parola curentă"
   },
   "prompts": {
     "noTemplate": "Șablonul tău este gol!",

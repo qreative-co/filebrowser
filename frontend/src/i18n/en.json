@@ -327,7 +327,8 @@
     "requirePasswordChangeTitle": "Change your password",
     "requirePasswordChangeInstructions": "You must set a new password before continuing.",
     "requirePasswordChangeSuccess": "Password updated. You are now signed in.",
-    "requirePasswordChangeMustDiffer": "New password must be different from your current password"
+    "requirePasswordChangeMustDiffer": "New password must be different from your current password",
+    "requirePasswordChangeCurrent": "Current password"
   },
   "quotas": {
     "title": "Storage quota",

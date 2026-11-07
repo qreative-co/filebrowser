@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Změňte si heslo",
     "requirePasswordChangeInstructions": "Než budete pokračovat, musíte nastavit nové heslo.",
     "requirePasswordChangeSuccess": "Heslo bylo aktualizováno. Nyní jste přihlášeni.",
-    "requirePasswordChangeMustDiffer": "Nové heslo se nesmí shodovat s vaším současným heslem"
+    "requirePasswordChangeMustDiffer": "Nové heslo se nesmí shodovat s vaším současným heslem",
+    "requirePasswordChangeCurrent": "Současné heslo"
   },
   "share": {
     "notice": "Poznámka: po vytvoření sdílené složky je tato složka více vystavena veřejnosti a platí pro ni jiná pravidla přístupu. Pokud není sdílená složka bezpečně nakonfigurována, může k ní mít přístup kdokoli.",

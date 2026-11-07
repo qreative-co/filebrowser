@@ -47,7 +47,7 @@ import Shelf from "@/components/Shelf.vue";
 import { settingsApi } from "@/api";
 import { state, getters, mutations } from "@/store";
 import { events, notify } from "@/notify";
-import { generateRandomCode } from "@/utils/auth";
+import { generateRandomCode, mustChangePassword } from "@/utils/auth";
 import { globalVars } from "@/utils/constants";
 import { syncDocumentTheme, syncEventTheme } from "@/utils/theme";
 import Search from "@/components/Search.vue";
@@ -209,6 +209,19 @@ export default {
       }
       // Public share routes are served without nginx basic auth; skip protected-only APIs.
       if (getters.isShare()) {
+        return;
+      }
+      // Qreative fork: a session whose user must change their password gets a pinned,
+      // locked prompt; the backend refuses every other API until the change is done.
+      if (mustChangePassword(state.user, globalVars.noAuth)) {
+        mutations.showPrompt({
+          name: "requirePasswordChange",
+          pinned: true,
+          locked: true,
+          props: {
+            username: state.user.username,
+          },
+        });
         return;
       }
       const sourceinfo = await settingsApi.sources();

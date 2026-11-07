@@ -154,7 +154,8 @@
     "requirePasswordChangeTitle": "Altere sua senha",
     "requirePasswordChangeInstructions": "É necessário definir uma nova senha antes de continuar.",
     "requirePasswordChangeSuccess": "Senha atualizada. Agora você está conectado.",
-    "requirePasswordChangeMustDiffer": "A nova senha deve ser diferente da sua senha atual"
+    "requirePasswordChangeMustDiffer": "A nova senha deve ser diferente da sua senha atual",
+    "requirePasswordChangeCurrent": "Senha atual"
   },
   "prompts": {
     "noTemplate": "Seu modelo está vazio!",
