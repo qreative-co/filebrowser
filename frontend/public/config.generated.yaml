@@ -81,8 +81,8 @@ auth:
       groupsClaim: ""                     # the JSON field name to read groups from. Default is "groups"
       userIdentifier: ""                  # the field value to use as the username. Default is "preferred_username" in oidc, "sub" in jwt. Other common values are "email" or "username", or "phone"
       disableVerifyTLS: false             # disable TLS verification (insecure, for testing only)
-      logoutRedirectUrl: ""               # if provider logout url is provided, the server will also redirect to logout url. Custom logout query params are respected.
-      header: ""                          # required header to use for authentication. Security Warning: the server blindly accepts the header value as username.
+      logoutRedirectUrl: ""               # if provider logout url is provided, filebrowser will also redirect to logout url. Custom logout query params are respected.
+      header: ""                          # required header to use for authentication. Security Warning: FileBrowser blindly accepts the header value as username.
     noauth: false                         # if set to true, overrides all other auth methods and disables authentication
     password:                             #  validate:omitempty
       enabled: true
@@ -102,7 +102,7 @@ auth:
       groupsClaim: "groups"               # the JSON field name to read groups from. Default is "groups"
       userIdentifier: "preferred_username" # the field value to use as the username. Default is "preferred_username" in oidc, "sub" in jwt. Other common values are "email" or "username", or "phone"
       disableVerifyTLS: false             # disable TLS verification (insecure, for testing only)
-      logoutRedirectUrl: ""               # if provider logout url is provided, the server will also redirect to logout url. Custom logout query params are respected.
+      logoutRedirectUrl: ""               # if provider logout url is provided, filebrowser will also redirect to logout url. Custom logout query params are respected.
       clientId: ""                        # secret: client id of the OIDC application
       clientSecret: ""                    # secret: client secret of the OIDC application
       issuerUrl: ""                       # authorization URL of the OIDC provider
@@ -114,7 +114,7 @@ auth:
       groupsClaim: ""                     # the JSON field name to read groups from. Default is "groups"
       userIdentifier: ""                  # the field value to use as the username. Default is "preferred_username" in oidc, "sub" in jwt. Other common values are "email" or "username", or "phone"
       disableVerifyTLS: false             # disable TLS verification (insecure, for testing only)
-      logoutRedirectUrl: ""               # if provider logout url is provided, the server will also redirect to logout url. Custom logout query params are respected.
+      logoutRedirectUrl: ""               # if provider logout url is provided, filebrowser will also redirect to logout url. Custom logout query params are respected.
       server: ""                          # scheme://host:port of the LDAP server (e.g. ldap://localhost:389)
       baseDN: ""                          # LDAP search base DN (e.g. dc=ldap,dc=goauthentik,dc=io)
       userDN: ""                          # Bind DN for service account (e.g. cn=admin,ou=users,dc=ldap,dc=goauthentik,dc=io)
@@ -127,7 +127,7 @@ auth:
       groupsClaim: ""                     # the JSON field name to read groups from. Default is "groups"
       userIdentifier: ""                  # the field value to use as the username. Default is "preferred_username" in oidc, "sub" in jwt. Other common values are "email" or "username", or "phone"
       disableVerifyTLS: false             # disable TLS verification (insecure, for testing only)
-      logoutRedirectUrl: ""               # if provider logout url is provided, the server will also redirect to logout url. Custom logout query params are respected.
+      logoutRedirectUrl: ""               # if provider logout url is provided, filebrowser will also redirect to logout url. Custom logout query params are respected.
       header: ""                          # HTTP header to look for JWT token (e.g. X-JWT-Assertion). Default is "X-JWT-Assertion"
       secret: ""                          # secret: Shared secret key/bytes for verifying JWT token signatures (required, eg PUBLIC KEY, RSA PUBLIC KEY, EC PUBLIC KEY, or CERTIFICATE)
       algorithm: ""                       # JWT signing algorithm (HS256, HS384, HS512, RS256, ES256). Default is "HS256"
@@ -272,7 +272,7 @@ shareDefaults:                            # optional defaults for new shares; ma
 integrations:
   office:                                 #  validate:omitempty
     url: ""                               # The URL to the OnlyOffice Document Server, needs to be accessible to the user.  validate:required
-    internalUrl: ""                       # An optional internal address that this server can use to communicate with the OnlyOffice Document Server, could be useful to bypass proxy.
+    internalUrl: ""                       # An optional internal address that the filebrowser server can use to communicate with the OnlyOffice Document Server, could be useful to bypass proxy.
     secret: ""                            # secret: authentication key for OnlyOffice integration  validate:required
     viewOnly: false                       # view only mode for OnlyOffice
   media:                                  #  validate:omitempty
@@ -304,14 +304,14 @@ integrations:
     extractEmbeddedSubtitles: false       # extract embedded subtitles from media files
     hardwareAcceleration: false           # enable hardware acceleration for ffmpeg if available
 http:
-  socket: ""                              # socket to listen on - eg. /var/run/media.sock
+  socket: ""                              # socket to listen on - eg. /var/run/filebrowser.sock
   tlsKey: ""                              # path to TLS key
   tlsCert: ""                             # path to TLS cert
   port: 80                                # port to listen on
   listen: ""                              # address to listen on (default: 0.0.0.0)
   baseURL: "/"                            # base URL for the server, the subpath that the server is running on.
   externalUrl: ""                         # used by share links if set (eg. http://mydomain.com)
-  internalUrl: ""                         # used by integrations if set, this is the base domain that an integration service will use to communicate with this server (eg. http://localhost:8080)
+  internalUrl: ""                         # used by integrations if set, this is the base domain that an integration service will use to communicate with filebrowser (eg. http://localhost:8080)
   disableWebDAV: false                    # disable webdav support (default: false)
   trustProxyHeaders: false                # honor X-Forwarded-* and X-Real-IP from a reverse proxy (default: false)
   trustedProxies:                         # IPs/CIDRs of trusted proxies; forwarded client headers are only honored when the socket peer matches one of these (default: empty = forwarded headers ignored)
