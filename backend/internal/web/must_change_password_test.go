@@ -210,14 +210,19 @@ func TestMustChangePasswordDoesNotAffectOtherUsers(t *testing.T) {
 }
 
 // TestMustChangePasswordLifecycle: flag set -> blocked; password changed via the
-// change-required endpoint -> flag cleared, the old password stops working and
-// the session is usable again.
+// change-required endpoint -> flag cleared, the old password stops working,
+// sessions from before the change are ended and the new session works.
 func TestMustChangePasswordLifecycle(t *testing.T) {
 	setupTestEnv(t)
 	mcpEnablePasswordAuth(t)
 	origMin := settings.Config.Auth.Methods.PasswordAuth.MinLength
 	settings.Config.Auth.Methods.PasswordAuth.MinLength = 12
-	t.Cleanup(func() { settings.Config.Auth.Methods.PasswordAuth.MinLength = origMin })
+	origExp := settings.Config.Auth.TokenExpirationHours
+	settings.Config.Auth.TokenExpirationHours = 2
+	t.Cleanup(func() {
+		settings.Config.Auth.Methods.PasswordAuth.MinLength = origMin
+		settings.Config.Auth.TokenExpirationHours = origExp
+	})
 
 	user := mcpCreateUser(t, "mcp-life", true)
 	token := testSessionToken(t, &user, 0)
@@ -232,25 +237,26 @@ func TestMustChangePasswordLifecycle(t *testing.T) {
 		req := httptest.NewRequest(http.MethodPost, "/api/auth/password/change-required?username=mcp-life", bytes.NewReader(body))
 		req.Header.Set("X-Password", current)
 		req.Header.Set("Content-Type", "application/json")
-		rec := httptest.NewRecorder()
-		wrapHandler(withoutUserHelper(changeRequiredPasswordHandler))(rec, req)
-		return rec
+		out := httptest.NewRecorder()
+		wrapHandler(withoutUserHelper(changeRequiredPasswordHandler))(out, req)
+		return out
 	}
 
 	// Below minLength is refused and the flag stays set.
-	if rec := change(mcpTempPassword, "short-pass"); rec.Code != http.StatusBadRequest {
-		t.Fatalf("short password status = %d, want 400", rec.Code)
+	if short := change(mcpTempPassword, "short-pass"); short.Code != http.StatusBadRequest {
+		t.Fatalf("short password status = %d, want 400", short.Code)
 	}
 	// Wrong current password is refused.
-	if rec := change("not-the-current-password", "a-much-longer-new-password"); rec.Code != http.StatusUnauthorized {
-		t.Fatalf("wrong current password status = %d, want 401", rec.Code)
+	if wrong := change("not-the-current-password", "a-much-longer-new-password"); wrong.Code != http.StatusUnauthorized {
+		t.Fatalf("wrong current password status = %d, want 401", wrong.Code)
 	}
 	if u, _ := state.GetUserByUsername("mcp-life"); !u.RequirePasswordChange {
 		t.Fatal("flag cleared by a failed change")
 	}
 
-	if rec := change(mcpTempPassword, "a-much-longer-new-password"); rec.Code != http.StatusOK {
-		t.Fatalf("change status = %d body = %s", rec.Code, rec.Body.String())
+	changed := change(mcpTempPassword, "a-much-longer-new-password")
+	if changed.Code != http.StatusOK {
+		t.Fatalf("change status = %d body = %s", changed.Code, changed.Body.String())
 	}
 	updated, err := state.GetUserByUsername("mcp-life")
 	if err != nil {
@@ -260,20 +266,29 @@ func TestMustChangePasswordLifecycle(t *testing.T) {
 		t.Fatal("flag still set after the password change")
 	}
 
+	// Sessions issued before the change (under the temporary password) are ended.
+	probe = &probeHandler{}
+	rec = httptest.NewRecorder()
+	withUser(probe.handle)(rec, mcpAuthedRequest(http.MethodGet, "/api/resources?path=/", token))
+	if rec.Code != http.StatusUnauthorized || probe.called {
+		t.Fatalf("old session after change: status = %d called = %v, want 401 and not called", rec.Code, probe.called)
+	}
+	// The session issued by the change endpoint works.
+	token = changed.Body.String()
 	probe = &probeHandler{}
 	rec = httptest.NewRecorder()
 	withUser(probe.handle)(rec, mcpAuthedRequest(http.MethodGet, "/api/resources?path=/", token))
 	if rec.Code != http.StatusOK || !probe.called {
-		t.Fatalf("after change: status = %d called = %v, want 200 and called", rec.Code, probe.called)
+		t.Fatalf("new session after change: status = %d called = %v body = %s, want 200 and called", rec.Code, probe.called, rec.Body.String())
 	}
 
 	// The bootstrap password no longer logs in; the new one does.
 	login := func(pw string) int {
 		req := httptest.NewRequest(http.MethodPost, "/api/auth/login?username=mcp-life", nil)
 		req.Header.Set("X-Password", pw)
-		rec := httptest.NewRecorder()
-		wrapHandler(loginHelper(loginHandler))(rec, req)
-		return rec.Code
+		out := httptest.NewRecorder()
+		wrapHandler(loginHelper(loginHandler))(out, req)
+		return out.Code
 	}
 	if code := login(mcpTempPassword); code != http.StatusUnauthorized {
 		t.Fatalf("login with old password status = %d, want 401", code)

@@ -214,6 +214,15 @@ func RevokeToken(token string) error {
 	return accessDb.RevokeToken(token)
 }
 
+// RevokeSessionTokensForUser immediately revokes all session tokens of a user
+// (Qreative fork). Named API tokens are not affected.
+func RevokeSessionTokensForUser(userID uint64) (int, error) {
+	if accessDb == nil {
+		return 0, fmt.Errorf("access storage not available")
+	}
+	return accessDb.RevokeSessionTokensForUser(userID)
+}
+
 // CheckChildItemAccess filters directory listings using in-memory access rules.
 func CheckChildItemAccess(response *iteminfo.FileInfo, idx *indexing.Index, username string) error {
 	if accessDb == nil {

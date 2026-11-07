@@ -18,6 +18,7 @@ import (
 //     restarts neither reset the password nor set the flag.
 func TestBootstrapAdminMustChangePasswordLifecycle(t *testing.T) {
 	t.Setenv("FILEBROWSER_ONLYOFFICE_SECRET", "")
+	t.Setenv("FILEBROWSER_DISABLE_AUTOMATIC_BACKUP", "true")
 	settings.Initialize("../../_docker/src/sharing/backend/config.yaml")
 	settings.Env.IsPlaywright = false
 	t.Cleanup(func() { settings.Env.IsPlaywright = false })
@@ -36,6 +37,7 @@ func TestBootstrapAdminMustChangePasswordLifecycle(t *testing.T) {
 	adminName := settings.PasswordAdminUsername()
 
 	dbPath := filepath.Join(t.TempDir(), "filebrowser.sqlite")
+	settings.Config.Server.DatabaseV2.Path = dbPath
 	if _, err := state.Initialize(dbPath); err != nil {
 		t.Fatal(err)
 	}
