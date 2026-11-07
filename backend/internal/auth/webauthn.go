@@ -293,7 +293,7 @@ func deriveWebAuthnConfig(cfg *settings.PasskeyAuthConfig) (*webauthn.Config, er
 		displayName = settings.Config.Frontend.Name
 	}
 	if displayName == "" {
-		displayName = "FileBrowser Quantum"
+		displayName = "Qreative Media" // Qreative fork
 	}
 
 	origins := cfg.RPOrigins

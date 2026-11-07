@@ -65,7 +65,7 @@ export async function readAllDirectoryEntries(reader, debugLabel = "") {
         ? ` (${debugLabel})`
         : "";
     console.info(
-      `[FileBrowser upload] directory listing${suffix}: ${nonemptyBatches} readEntries batches — collected ${all.length} entries (multiple batches indicate a directory with > ~100 immediate children)`
+      `[upload] directory listing${suffix}: ${nonemptyBatches} readEntries batches — collected ${all.length} entries (multiple batches indicate a directory with > ~100 immediate children)`
     );
   }
 
@@ -418,7 +418,7 @@ class UploadManager {
     const dirCount = newUploads.length;
     if (fileUploads.length >= 50) {
       console.info(
-        `[FileBrowser upload] add(): ${fileUploads.length} file job(s), ${dirCount} directory job(s) → base ${basePath}`
+        `[upload] add(): ${fileUploads.length} file job(s), ${dirCount} directory job(s) → base ${basePath}`
       );
     }
 

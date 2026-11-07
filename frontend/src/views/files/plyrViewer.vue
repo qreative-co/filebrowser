@@ -902,7 +902,7 @@ export default {
       const artworkSrc = this.previewType === 'video' ? this.posterUrl : this.albumArtUrl;
       const metadata = {
         title: this.metadata?.title || this.fileName,
-        artist: this.metadata?.artist || globalVars.name || "Filebrowser Quantum",
+        artist: this.metadata?.artist || globalVars.name || "Qreative Media",
         album: this.metadata?.album || "",
         // In current versions of Firefox the artwork will not work, seems that doesn't like blob URLs.
         // But testing in 149.0a1 (nightly builds), it seems to work, so this something that will solve over time :)
