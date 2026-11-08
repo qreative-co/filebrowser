@@ -179,6 +179,14 @@ export function stopSessionKeepAlive() {
   }
 }
 
+/**
+ * Qreative fork: true when the signed-in user must change their password before
+ * using the app (the backend answers 403 {"mustChangePassword": true} until then).
+ */
+export function mustChangePassword(user, noAuth = false) {
+  return !noAuth && !!user && user.requirePasswordChange === true && user.loginMethod === "password";
+}
+
 export function generateRandomCode(length) {
   const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let code = '';

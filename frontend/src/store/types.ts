@@ -113,6 +113,8 @@ export interface Prompt {
   name?: string | undefined;
   parentId?: number | undefined;
   pinned?: boolean | undefined;
+  /** Qreative fork: a locked prompt cannot be closed by the user (close button, Escape, navigation). */
+  locked?: boolean | undefined;
   confirm?: unknown;
   action?: unknown;
   props?: Record<string, unknown> | undefined;

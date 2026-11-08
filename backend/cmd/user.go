@@ -89,7 +89,10 @@ func validateUserInfo(newDB bool) {
 			user.Permissions = settings.AdminPerms()
 			user.Password = settings.PasswordAdminPassword()
 			user.LoginMethod = users.LoginMethodPassword
-			changedFields = append(changedFields, "permissions", "password", "loginMethod")
+			// Qreative fork: a password set from config/env is a bootstrap password,
+			// so the admin must replace it at the next login.
+			user.RequirePasswordChange = true
+			changedFields = append(changedFields, "permissions", "password", "loginMethod", "requirePasswordChange")
 			changePass = true
 		}
 

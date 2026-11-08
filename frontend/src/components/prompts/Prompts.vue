@@ -30,6 +30,7 @@
         @touchstart.passive="onPointerDown($event, prompt.id, 'touch')"
       >
         <button
+          v-if="!prompt.locked"
           type="button"
           class="prompt-close"
           :aria-label="$t('general.close')"
@@ -493,6 +494,9 @@ export default {
       if (event.key === 'Escape') {
         event.preventDefault();
         event.stopImmediatePropagation();
+        if (top?.locked) {
+          return;
+        }
         this.closeTopPrompt(top.id);
         return;
       }

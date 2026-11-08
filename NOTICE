@@ -1,0 +1,25 @@
+FileBrowser Quantum
+Copyright (c) Graham Steffaniak and the FileBrowser Quantum contributors.
+https://github.com/gtsteffaniak/filebrowser
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This repository (https://github.com/qreative-co/filebrowser) is a modified
+fork of FileBrowser Quantum v2.1.4-beta, maintained by Qreative.
+
+Changes made by Qreative (files carry a "Qreative fork" comment where changed):
+  - "Must change password at first login": the per-user requirePasswordChange
+    flag is now set automatically for the bootstrap admin (created on first
+    start, or reset at startup from auth.methods.password.adminPassword /
+    FILEBROWSER_ADMIN_PASSWORD); while it is set, the backend answers every
+    authenticated API except own-user lookup and logout with
+    403 {"mustChangePassword": true}, and the web UI shows a locked prompt that
+    asks for the current password and a new one (twice). Completing the change
+    ends every earlier session of that user.
+  - Agency branding: user-visible product name, default favicon/logo, page
+    metadata, help/doc links and locale strings show "Qreative Media" instead
+    of the upstream name; the update check (which links to upstream releases)
+    is off by default. Source code, comments, identifiers and licences keep
+    the upstream attribution.
+  - A GitHub Actions workflow that builds the image
+    ghcr.io/qreative-co/filebrowser.
